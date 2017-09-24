@@ -10,6 +10,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Dialogs } from "@ionic-native/dialogs";
+import { FileChooser } from '@ionic-native/file-chooser';
 //根模块
 import { MyApp } from './app.component';
 //页面模块
@@ -24,15 +25,18 @@ import { PersonalPage } from '../pages/personal/personal'
 import { ForumPage } from '../pages/forum/forum'
 import { TopicListPage } from '../pages/topic-list/topic-list';
 import { ListRefLoadPage } from '../pages/list-ref-load/list-ref-load';
+import { MyTopicsPage } from '../pages/my-topics/my-topics';
 //import { TopicListPageModule } from '../pages/topic-list/topic-list.module';
-
+import { AddTopicPageModule } from "../pages/add-topic/add-topic.module"
 //服务
 import { LoginService } from './service/loginService';
 import { CommonHttpService } from "./service/commonHttpService";
 import { TopicService } from "./service/topicService";
 import { LoadingService } from "./service/loadingService";
+
 import { ForumService } from "./service/forumListService";
 import { PostService } from "./service/postService";
+import { ReplyService } from "./service/replyService";
 //指令
 import { MyDir } from "./directive/notnull";
 //加载文字资源
@@ -55,10 +59,12 @@ export function createTranslateLoader(http: Http) {
     //TopicItemPage,
     TopicListPage,
     ListRefLoadPage,
-    TopicDetailPage
+    TopicDetailPage,
+    MyTopicsPage
   ],
   //第三方模块，类库，插件
   imports: [
+    AddTopicPageModule,
     //MainPageModule,
     //TopicListPageModule,
     BrowserModule,
@@ -86,10 +92,13 @@ export function createTranslateLoader(http: Http) {
     HotPage,
     PersonalPage,
     ForumPage,
-    TopicDetailPage
+    TopicDetailPage,
+    MyTopicsPage
   ],
   //service模块
   providers: [
+    FileChooser,
+    ReplyService,
     ForumService,
     Dialogs,
     StatusBar,

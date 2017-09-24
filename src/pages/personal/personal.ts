@@ -6,6 +6,7 @@ import { Storage } from "@ionic/storage";
 import { LoginService } from '../../app/service/loginService';
 import { AlertController } from 'ionic-angular';
 import { Const } from "../../app/service/VALUES";
+import { MyTopicsPage } from "../my-topics/my-topics";
 /**
  * Generated class for the PersonalPage page.
  *
@@ -43,6 +44,15 @@ export class PersonalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PersonalPage');
+  }
+
+
+  toMyTopics() {
+    if (Const.user) {
+      this.navCtrl.push(MyTopicsPage);
+    } else {
+      this.loading.basicAlert('还没有登陆');
+    }
   }
 
   login() {

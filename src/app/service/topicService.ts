@@ -10,12 +10,12 @@ export class TopicService {
 
     }
 
-    private getTopic(paraList) {
+    private getTopic(paraList, api = Apis.getTopicList) {
         if (Const.user) {
             paraList.push({ name: 'accessSecret', value: Const.user.secret });
             paraList.push({ name: 'accessToken', value: Const.user.token });
         }
-        let promise = this.commonService.commonPost(Apis.getTopicList, paraList).then((result) => { return { sum: result.total_num, list: result.list } });
+        let promise = this.commonService.commonPost(api, paraList).then((result) => { return { sum: result.total_num, list: result.list } });
         return promise;
     }
 
@@ -42,5 +42,13 @@ export class TopicService {
         paraList.push({ name: 'pageSize', value: '10' });
         paraList.push({ name: 'boardId', value: boardId });
         return this.getTopic(paraList);
+    }
+
+    getTopicByUser(uid, page) {
+        let paraList: Array<any> = new Array<any>();
+        paraList.push({ name: 'page', value: page });
+        paraList.push({ name: 'pageSize', value: '10' });
+        paraList.push({ name: 'uid', value: uid });
+        return this.getTopic(paraList, Apis.userTopicList);
     }
 }

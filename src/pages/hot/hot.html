@@ -27,7 +27,7 @@
   </ion-refresher> -->
   <list-ref-load (refreshTopic)="refreshData($event)" (loadMoreTopic)="getData($event)">
     <div *ngSwitchCase="'hot'">
-      <page-topic-list *ngSwitchCase="'hot'" [topicList]='hotTopicList' (addTopic)="addTopic($event)"></page-topic-list>
+      <page-topic-list [topicList]='hotTopicList'></page-topic-list>
     </div>
     <div *ngSwitchCase="'new'">
       <page-topic-list [topicList]='newTopicList'></page-topic-list>

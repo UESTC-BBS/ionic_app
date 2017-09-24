@@ -2,7 +2,7 @@
   <button ion-fab mini (click)="addClick()"><ion-icon name="add"></ion-icon></button>
 </ion-fab>
 <ion-list>
-  <ion-card *ngFor="let topic of topicList" (click)='goTopicDetail(topic.topic_id)'>
+  <ion-card *ngFor="let topic of topicList">
     <ion-item>
       <ion-avatar item-start>
         <img [src]="topic.userAvatar">
@@ -11,7 +11,7 @@
       <p class="board">{{topic.board_name}}</p>
     </ion-item>
 
-    <ion-card-content>
+    <ion-card-content (click)='goTopicDetail(topic.topic_id)'>
       <p class="topic_title">{{topic.title}}</p>
       <p class="topic_subject">{{topic.subject}}</p>
     </ion-card-content>
@@ -24,7 +24,7 @@
           </button>
       </ion-col>
       <ion-col>
-        <button ion-button color="primary" clear small icon-start>
+        <button ion-button color="primary" (click)="reply(topic.topic_id)" clear small icon-start>
             <ion-icon name='text'></ion-icon>
             {{topic.replies}}
           </button>

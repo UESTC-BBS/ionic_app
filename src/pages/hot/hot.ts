@@ -102,9 +102,4 @@ export class HotPage {
       }
     }
   }
-
-  addTopic(a) {
-    console.log(a);
-  }
-
 }

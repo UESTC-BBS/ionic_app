@@ -1,0 +1,32 @@
+page-add-topic {
+  .selectBar {
+    background: #f8f8f8;
+  }
+  ion-icon {
+    padding: 5px 10px;
+  }
+  ion-toolbar {
+    i {
+      color: $font_color3;
+    }
+    .fa-image {
+      margin-left: 10px;
+    }
+  }
+  ion-list {
+    height: 100%;
+    margin-bottom: 0px !important;
+    .textarea {
+      height: 82%;
+      * {
+        height: 100%;
+      }
+    }
+  }
+  ion-textarea {
+    height: 100%;
+    textarea {
+      resize: none;
+    }
+  }
+}
