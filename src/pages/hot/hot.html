@@ -20,11 +20,6 @@
 
 
 <ion-content [ngSwitch]="type">
-  <!-- <ion-refresher (ionRefresh)="refreshData($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
-
-    </ion-refresher-content>
-  </ion-refresher> -->
   <list-ref-load (refreshTopic)="refreshData($event)" (loadMoreTopic)="getData($event)">
     <div *ngSwitchCase="'hot'">
       <page-topic-list [topicList]='hotTopicList'></page-topic-list>
@@ -32,10 +27,6 @@
     <div *ngSwitchCase="'new'">
       <page-topic-list [topicList]='newTopicList'></page-topic-list>
     </div>
-    <!-- <ion-infinite-scroll (ionInfinite)="getData($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll> -->
-  </list-ref-load> -->
+  </list-ref-load>
 
 </ion-content>

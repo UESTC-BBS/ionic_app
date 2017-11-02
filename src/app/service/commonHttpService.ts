@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Apis } from "./Apis"
 import { Reply } from "../models/Reply"
 import { Storage } from "@ionic/storage";
-
+import { Const } from "./VALUES";
+import { LoadingService } from "./loadingService";
 import 'rxjs/add/operator/toPromise';
 
 /*
@@ -18,12 +18,18 @@ export class CommonHttpService {
   private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' });
 
   constructor(public http: Http,
+    public loading: LoadingService,
     protected storage: Storage) {
     console.log('Hello HomeService Provider');
 
   }
 
   commonPost(url, argsList: Array<any>): Promise<any> {
+    if (Const.user) {
+      //argsList.push({ name: 'apphash', value: this.getAppHash() });
+      argsList.push({ name: 'accessSecret', value: Const.user.secret });
+      argsList.push({ name: 'accessToken', value: Const.user.token });
+    }
     return this.http.post(url, this.getParaString(argsList), { headers: this.headers })
       .toPromise()
       .then(response => {
@@ -31,6 +37,7 @@ export class CommonHttpService {
         if (reply.rs) {
           return reply
         } else {
+          this.loading.basicAlert(`请求错误：${reply.head.errInfo}`, "错误")
           console.log(reply.head.errInfo)
         }
       }).catch(this.handleError)
@@ -46,14 +53,6 @@ export class CommonHttpService {
   }
 
 
-  login(username: string, password): Promise<Reply> {
-    const url = Apis.login
-    return this.http.post(url, "username=" + username + "&password=" + password, { headers: this.headers })
-      .toPromise()
-      .then(response => response.json() as Reply)
-      .catch(this.handleError)
-
-  }
 
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);

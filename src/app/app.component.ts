@@ -3,8 +3,9 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from "@ngx-translate/core";
+import { UtilsService } from "./service/utilsService";
+import { LoadingService } from "./service/loadingService";
 import { Storage } from "@ionic/storage";
-//import { LaunchPage } from '../pages/launch/launch';
 import { TestPage } from '../pages/test/test';
 import { MainPage } from "../pages/main/main";
 import { Const } from "./service/VALUES";
@@ -21,6 +22,8 @@ export class MyApp {
     platform: Platform,
     statusBar: StatusBar,
     storage: Storage,
+    loadingService: LoadingService,
+    utilsService: UtilsService,
     splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -33,6 +36,16 @@ export class MyApp {
           Const.user = data;
         }
       });
+      storage.set("version", "2");
+      storage.get("version").then(data => {
+        if (data) {
+          utilsService.getVersion().then(version => {
+            if (version != data) {
+              loadingService.getLoading().present();
+            }
+          })
+        }
+      })
     });
   }
 

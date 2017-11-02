@@ -1,11 +1,28 @@
 page-add-topic {
   .selectBar {
     background: #f8f8f8;
+    display: inline-block;
+    padding: 5px;
+    width: 85%;
+    ion-select {
+      padding: 5px;
+    }
+  }
+  .commit {
+    display: inline-block;
+    margin: auto;
+    position: absolute;
+    top: 20px;
+    i.fa {
+      margin-right: 10px;
+    }
   }
   ion-icon {
     padding: 5px 10px;
   }
-  ion-toolbar {
+  ion-toolbar.toolbar {
+    position: fixed;
+    bottom: 0px;
     i {
       color: $font_color3;
     }
@@ -13,20 +30,31 @@ page-add-topic {
       margin-left: 10px;
     }
   }
-  ion-list {
-    height: 100%;
+  ion-content {
+    ion-select {
+      margin: 0px !important;
+    }
     margin-bottom: 0px !important;
+    height: 100%;
     .textarea {
-      height: 82%;
+      min-height: 50%;
       * {
-        height: 100%;
+        display: block;
+        height: 300xp;
+      }
+      textarea {
+        width: 100%;
+        border: none;
+        resize: none;
+        overflow-y: auto;
       }
     }
-  }
-  ion-textarea {
-    height: 100%;
-    textarea {
-      resize: none;
+    .image_list {
+      height: 40%;
+      img.image_item {
+        width: 30%;
+        padding: 10px;
+      }
     }
   }
 }

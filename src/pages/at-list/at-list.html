@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-item class="at_usr" *ngFor='let user of atUserList;index as i'>
+    <ion-label>{{user.name}}</ion-label>
+    <ion-checkbox color="dark" [checked]="user.checked" (ionChange)='check(i,user)'></ion-checkbox>
+  </ion-item>
+</ion-list>

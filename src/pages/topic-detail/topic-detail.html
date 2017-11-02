@@ -7,54 +7,84 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>帖子</ion-title>
+    <ion-title>
+      <ion-label class="title">帖子详情</ion-label>
+      <ion-label class="title reply_topic" (click)="replyComment()">
+        回复楼主
+      </ion-label>
+    </ion-title>
+
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-item no-lines>
-    <p class="topic_title">{{topicDetail.topic.title}}</p>
-  </ion-item>
-  <div class="topic_content">
+  <list-ref-load (refreshTopic)="getData($event)" (loadMoreTopic)="getMoreData($event)">
     <ion-item no-lines>
-      <ion-avatar item-start>
-        <img [src]="topicDetail.topic.icon">
-      </ion-avatar>
-      <h2>{{topicDetail.topic.user_nick_name}}</h2>
-      <p class="board">{{topicDetail.forumName}}</p>
+      <p class="topic_title">{{topicDetail.topic.title}}</p>
     </ion-item>
-
-    <ion-card-content>
-      <ion-item class="content_infor" *ngFor="let info of topicDetail.topic.content" no-lines>
-        <p *ngIf='info.type==0' class="topic_content_text">{{info.infor}}</p>
-        <a *ngIf='info.type==5' class="topic_content_link" href='{{info.url}}'>{{info.infor}}:{{info.desc}}</a>
-        <img *ngIf='info.type==1' class="topic_content_image" [src]="info.infor">
-      </ion-item>
-    </ion-card-content>
-  </div>
-  <div class="comment">
-    <ion-item class="tips" no-lines>
-      <ion-item-divider color="light">评论：</ion-item-divider>
-    </ion-item>
-    <ion-item class="comment" *ngFor='let comment of topicDetail.list' no-line>
-      <ion-item class="comment_header" no-line>
+    <div class="topic_content">
+      <ion-item no-lines>
         <ion-avatar item-start>
-          <img [src]="comment.icon">
+          <img [src]="topicDetail.topic.icon">
         </ion-avatar>
-        <h2 class="comment_username">{{comment.reply_name}}</h2>
-        <i class="gender fa fa-mars fa-lg" *ngIf='comment.gender==1'></i>
-        <i class="gender fa fa-venus fa-lg" *ngIf='comment.gender==0'></i>
-        <p class="board">{{comment.userTitle}}</p>
+        <h2>{{topicDetail.topic.user_nick_name}}</h2>
+        <p class="board">{{topicDetail.forumName}}</p>
       </ion-item>
-      <ion-list class="reply_list">
-        <ion-item class="content_infor" *ngFor="let info of comment.reply_content" no-lines>
+
+      <ion-card-content>
+        <ion-item class="content_infor" *ngFor="let info of topicDetail.topic.content" no-lines>
           <p *ngIf='info.type==0' class="topic_content_text">{{info.infor}}</p>
           <a *ngIf='info.type==5' class="topic_content_link" href='{{info.url}}'>{{info.infor}}:{{info.desc}}</a>
           <img *ngIf='info.type==1' class="topic_content_image" [src]="info.infor">
         </ion-item>
-      </ion-list>
-    </ion-item>
-  </div>
+      </ion-card-content>
+    </div>
+    <div class="comment">
+      <ion-item class="tips" no-lines *ngIf='topicDetail.list.length>0'>
+        <ion-item-divider color="light">评论：</ion-item-divider>
+      </ion-item>
+      <ion-item class="no_comment_tips" no-lines *ngIf='topicDetail.topic.replies==0'>
+        <ion-item-divider color="light">暂时还没有评论</ion-item-divider>
+      </ion-item>
+      <ion-item class="comment" *ngFor='let comment of topicDetail.list' no-line>
+        <ion-item class="comment_header" no-lines>
+          <ion-avatar item-start>
+            <img [src]="comment.icon">
+          </ion-avatar>
+          <h2 class="comment_username">{{comment.reply_name}}</h2>
+          <i class="gender fa fa-mars fa-lg" *ngIf='comment.gender==1'></i>
+          <i class="gender fa fa-venus fa-lg" *ngIf='comment.gender==0'></i>
+          <p class="board">{{comment.userTitle}}</p>
+        </ion-item>
+        <ion-list class="reply_list">
+          <ion-item *ngIf='comment.is_quote' class="quote" no-lines>
+            <p class="head">{{getParse(comment.quote_content).head}}</p>
+            <p class="content">{{getParse(comment.quote_content).content}}</p>
+          </ion-item>
+          <ion-item class="content_infor" *ngFor="let info of comment.reply_content" no-lines>
+            <p *ngIf='info.type==0' class="topic_content_text" [innerHTML]='parseContent(info.infor)'></p>
+            <a *ngIf='info.type==5' class="topic_content_link" href='{{info.url}}'>{{info.infor}}:{{info.desc}}</a>
+            <img *ngIf='info.type==1' class="topic_content_image" [src]="info.infor">
+          </ion-item>
+        </ion-list>
+        <ion-row class="operation">
+          <ion-col>
+            <ion-note>
+              {{comment.posts_date | postdate }}
+            </ion-note>
+          </ion-col>
+          <ion-col class="comment" (click)='replyComment(comment.reply_posts_id)'>
+            <ion-note>
+              <i class="fa fa-commenting-o fa-lg"></i>
+            </ion-note>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item class="no_comment_tips" no-lines *ngIf='topicDetail.list.length==topicDetail.topic.replies&&topicDetail.topic.replies>0'>
+        <ion-item-divider color="light">没有更多内容了</ion-item-divider>
+      </ion-item>
+    </div>
+  </list-ref-load>
 </ion-content>

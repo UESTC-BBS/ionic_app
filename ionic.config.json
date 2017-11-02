@@ -8,5 +8,8 @@
   "proxies": [{
     "path": "/mobcent",
     "proxyUrl": "http://bbs.uestc.edu.cn/mobcent"
+  }, {
+    "path": "/docs",
+    "proxyUrl": "http://120.77.213.75/docs"
   }]
 }

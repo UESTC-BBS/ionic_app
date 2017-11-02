@@ -14,10 +14,10 @@
     "target": "es5",
     "baseUrl": "./src",
     "paths": {
-      "models/*": ["app/models/*"],
-      "service/*": ["app/service/*"],
-      "pages/*": ["pages/*"],
-      "directive/*": ["app/directive/*"]
+      // "models/*": ["app/models/*"],
+      // "service/*": ["app/service/*"],
+      // "pages/*": ["pages/*"],
+      // "directive/*": ["app/directive/*"]
     }
   },
   "include": [

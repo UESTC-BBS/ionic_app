@@ -16,6 +16,19 @@
   margin-right: 32px;
 }
 
+ion-title {
+  .tool-bar-title {
+    font-size: $font-size1;
+  }
+}
+
 ion-content {
+  ion-content.ref-content {
+    margin-top: 0px !important;
+  }
   margin-top: $content_margin_top !important;
+  .scroll-content {
+    border-top: none !important;
+    margin-bottom: 0px !important;
+  }
 }

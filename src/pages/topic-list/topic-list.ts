@@ -4,8 +4,10 @@ import { TopicDetailPage } from "../topic-detail/topic-detail";
 import { AlertController } from 'ionic-angular';
 import { LoadingService } from "../../app/service/loadingService";
 import { ReplyService } from "../../app/service/replyService";
+import { TopicService } from "../../app/service/topicService";
 import { Content } from "../../app/models/ReplyToAdd";
 import { AddTopicPage } from "../add-topic/add-topic";
+import { Const } from "../../app/service/VALUES";
 
 /**
  * Generated class for the TopicListPage page.
@@ -27,6 +29,7 @@ export class TopicListPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public topicService: TopicService,
     public replyService: ReplyService,
     public loading: LoadingService,
     public alert: AlertController) {
@@ -37,16 +40,38 @@ export class TopicListPage {
   }
 
   goTopicDetail(topicId) {
+    if (!Const.user) {
+      this.loading.basicAlert("请先登录")
+      return
+    }
     this.navCtrl.push(TopicDetailPage, { topicId: topicId })
   }
 
-  reply(topicId) {
+  support(topic) {
+    if (!Const.user) {
+      this.loading.basicAlert("请先登录")
+      return
+    }
+    this.topicService.support(topic.topic_id).then((result) => {
+      if (result) {
+        debugger
+        topic.recommendAdd = topic.recommendAdd + 1;
+        console.log(topic);
+      }
+    });
+  }
+
+  reply(topic) {
+    if (!Const.user) {
+      this.loading.basicAlert("请先登录")
+      return
+    }
     let prompt = this.alert.create({
       title: '评论',
       inputs: [
         {
           name: 'reply',
-          placeholder: '用户名'
+          placeholder: '回复内容……'
         }
       ],
       buttons: [
@@ -61,11 +86,14 @@ export class TopicListPage {
           handler: data => {
             let msgs: Array<Content> = []
             msgs.push(new Content(0, data.reply));
-            this.replyService.replyTopic(topicId, msgs).then(
+            this.replyService.replyTopic(topic.topic_id, msgs).then(
               (result) => {
-                this.loading.basicAlert(result.errcode)
+                if (result) {
+                  this.loading.basicAlert("回复成功")
+                  topic.replies += 1;
+                }
               }
-            ).catch(() => { this.loading.basicAlert('回复失败') })
+            ).catch((e) => { this.loading.basicAlert(e) })
           }
         }
       ]

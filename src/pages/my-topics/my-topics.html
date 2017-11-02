@@ -7,12 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>my-topics</ion-title>
+    <ion-title>我的帖子</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <page-topic-list [topicList]='topicList'></page-topic-list>
+  <list-ref-load (refreshTopic)="refreshData($event)" (loadMoreTopic)="getData($event)">
+    <page-topic-list [topicList]='topicList'></page-topic-list>
+  </list-ref-load>
 </ion-content>

@@ -18,8 +18,8 @@ import { LoadingService } from '../../app/service/loadingService';
   templateUrl: 'hot.html',
 })
 export class HotPage {
-  private hotTopicList = [];
-  private newTopicList = [];
+  hotTopicList = [];
+  newTopicList = [];
   private currentHotPage = 1
   private currentNewPage = 1
   type = "hot"
@@ -32,6 +32,7 @@ export class HotPage {
     public topicService: TopicService,
     public loading: LoadingService,
     public dialog: Dialogs) {
+    console.log('constructor HotPage');
     loading.presentLoading(1000);
     this.topicService.getHotTopic(this.currentHotPage).then((result) => {
       console.log(result);

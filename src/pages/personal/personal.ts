@@ -7,6 +7,8 @@ import { LoginService } from '../../app/service/loginService';
 import { AlertController } from 'ionic-angular';
 import { Const } from "../../app/service/VALUES";
 import { MyTopicsPage } from "../my-topics/my-topics";
+import { SettingPage } from "../../pages/setting/setting";
+import { AboutPage } from '../../pages/about/about';
 /**
  * Generated class for the PersonalPage page.
  *
@@ -33,6 +35,7 @@ export class PersonalPage {
     public loading: LoadingService,
     public alert: AlertController,
     public storage: Storage) {
+    console.log("person");
     this.user = this.storage.get('user').then((data) => {
       if (data) {
         this.user = data;
@@ -42,6 +45,10 @@ export class PersonalPage {
 
   }
 
+  toAbout() {
+    this.navCtrl.push(AboutPage);
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad PersonalPage');
   }
@@ -49,10 +56,22 @@ export class PersonalPage {
 
   toMyTopics() {
     if (Const.user) {
-      this.navCtrl.push(MyTopicsPage);
+      this.navCtrl.push(MyTopicsPage, { type: "topic" });
     } else {
       this.loading.basicAlert('还没有登陆');
     }
+  }
+
+  toMyReplies() {
+    if (Const.user) {
+      this.navCtrl.push(MyTopicsPage, { type: "reply" });
+    } else {
+      this.loading.basicAlert('还没有登陆');
+    }
+  }
+
+  toSetting() {
+    this.navCtrl.push(SettingPage);
   }
 
   login() {

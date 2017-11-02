@@ -1,13 +1,7 @@
-<!--
-  Generated template for the PersonalPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>personal</ion-title>
+    <ion-title>个人中心</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -33,7 +27,7 @@
         我的帖子
       </button>
 
-    <button ion-item class="setting_menu">
+    <button ion-item class="setting_menu" (click)="toMyReplies()">
         <ion-icon name="medical" item-start></ion-icon>
         我的回复
       </button>
@@ -48,13 +42,13 @@
         账户设置
       </button>
 
-    <button ion-item>
+    <button ion-item (click)="toSetting()">
         <ion-icon name="settings" item-start></ion-icon>
         设置
       </button>
 
-    <button ion-item>
-        <ion-icon name="planet" item-start></ion-icon>
+    <button ion-item (click)="toAbout()">
+        <ion-icon name="planet" item-start ></ion-icon>
         关于
       </button>
   </ion-list>

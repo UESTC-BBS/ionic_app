@@ -28,4 +28,12 @@ export class LoginService {
     return promise;
   }
 
+  logout(username: string): Promise<Reply> {
+    let paraList: Array<any> = new Array<any>();
+    paraList.push({ name: 'type', value: 'logout' });
+    paraList.push({ name: 'username', value: username });
+    let promise = this.commonService.commonPost(Apis.login, paraList);
+    return promise;
+  }
+
 }

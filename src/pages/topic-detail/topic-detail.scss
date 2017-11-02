@@ -1,35 +1,68 @@
 page-topic-detail {
-  ion-content {
-    margin: 0px
+  .reply_topic {
+    font-size: $font-size2;
+    margin-left: 100px;
   }
-  p.board {
-    font-size: $font_size3;
-    color: $font_tip_color;
-  }
-  p.topic_title {
-    text-align: left;
-    text-indent: 10px;
-    display: block;
-    font-size: $font_size1;
-    color: $font_color1;
-    white-space: normal
-  }
-  p.topic_content_text {
-    word-break: break-all;
-    white-space: normal;
-  }
-  i.gender {
-    position: relative;
-    left: 10px;
-    font-size: 14px;
-  }
-  i.fa-mars {
-    color: lightskyblue
-  }
-  i.fa-venus {
-    color: pink
-  }
-  h2.comment_username {
+  ion-label.title {
     display: inline-block;
+  }
+  ion-content {
+    margin: 0px;
+    p.board {
+      font-size: $font_size3;
+      color: $font_tip_color;
+    }
+    p.topic_title {
+      text-align: left;
+      text-indent: 10px;
+      display: block;
+      font-size: $font_size1;
+      color: $font_color1;
+      white-space: normal
+    }
+    p.topic_content_text {
+      word-break: break-all;
+      white-space: normal;
+    }
+    div.comment {
+      padding-bottom: 100px;
+      .reply_list {
+        margin: 0px 0px;
+      }
+      .no_comment_tips {
+        text-align: center;
+      }
+      ion-item.quote {
+        margin: 5px 0 5px 10px;
+        background: #f3f3f3;
+        border-radius: 5px;
+        p.head {
+          color: $font-color3;
+        }
+        p.content {
+          word-break: break-all;
+          white-space: pre-wrap;
+        }
+      }
+      ion-row.operation {
+        font-size: $font-size3;
+        text-align: center;
+        color: #999;
+      }
+      i.gender {
+        position: relative;
+        left: 10px;
+        font-size: 14px;
+      }
+      i.fa-mars {
+        color: lightskyblue
+      }
+      i.fa-venus {
+        color: pink
+      }
+      h2.comment_username {
+        display: inline-block;
+      }
+    }
   }
 }

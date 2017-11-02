@@ -11,32 +11,33 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Dialogs } from "@ionic-native/dialogs";
 import { FileChooser } from '@ionic-native/file-chooser';
+import { LoadingPageModule } from "../pages/loading/loading.module";
 //根模块
 import { MyApp } from './app.component';
 //页面模块
-import { MainPage } from '../pages/main/main';
-import { LoginPage } from '../pages/login/login';
-import { LaunchPage } from '../pages/launch/launch';
-import { TestPage } from "../pages/test/test";
-import { TopicDetailPage } from "../pages/topic-detail/topic-detail";
-import { HotPage } from "../pages/hot/hot";
+import { MainPageModule } from '../pages/main/main.module';
+import { TestPageModule } from "../pages/test/test.module";
+import { TopicDetailPageModule } from "../pages/topic-detail/topic-detail.module";
+import { HotPageModule } from "../pages/hot/hot.module";
 
-import { PersonalPage } from '../pages/personal/personal'
-import { ForumPage } from '../pages/forum/forum'
-import { TopicListPage } from '../pages/topic-list/topic-list';
-import { ListRefLoadPage } from '../pages/list-ref-load/list-ref-load';
-import { MyTopicsPage } from '../pages/my-topics/my-topics';
-//import { TopicListPageModule } from '../pages/topic-list/topic-list.module';
+import { PersonalPageModule } from '../pages/personal/personal.module'
+import { TopicListPageModule } from '../pages/topic-list/topic-list.module';
+import { ListRefLoadPageModule } from '../pages/list-ref-load/list-ref-load.module';
+import { MyTopicsPageModule } from '../pages/my-topics/my-topics.module';
+
 import { AddTopicPageModule } from "../pages/add-topic/add-topic.module"
+import { SettingPageModule } from "../pages/setting/setting.module";
 //服务
 import { LoginService } from './service/loginService';
 import { CommonHttpService } from "./service/commonHttpService";
 import { TopicService } from "./service/topicService";
 import { LoadingService } from "./service/loadingService";
+import { UtilsService } from "./service/utilsService"
 
 import { ForumService } from "./service/forumListService";
 import { PostService } from "./service/postService";
 import { ReplyService } from "./service/replyService";
+import { PipeModule } from "./filter/pipeModule";
 //指令
 import { MyDir } from "./directive/notnull";
 //加载文字资源
@@ -48,32 +49,30 @@ export function createTranslateLoader(http: Http) {
   //自定义模块，页面
   declarations: [
     MyApp,
-    MainPage,
-    LoginPage,
-    MyDir,
-    LaunchPage,
-    TestPage,
-    HotPage,
-    PersonalPage,
-    ForumPage,
-    //TopicItemPage,
-    TopicListPage,
-    ListRefLoadPage,
-    TopicDetailPage,
-    MyTopicsPage
+    MyDir
   ],
   //第三方模块，类库，插件
   imports: [
+    LoadingPageModule,
+    SettingPageModule,
     AddTopicPageModule,
-    //MainPageModule,
-    //TopicListPageModule,
+    MainPageModule,
+    TopicListPageModule,
+    ListRefLoadPageModule,
+    MainPageModule,
+    TestPageModule,
+    HotPageModule,
+    PersonalPageModule,
+    TopicDetailPageModule,
+    MyTopicsPageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
     FormsModule,
     BrowserAnimationsModule,
     IonicStorageModule.forRoot(),
-    TranslateModule.forRoot({
+    PipeModule.forRoot(),
+    TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
@@ -85,15 +84,6 @@ export function createTranslateLoader(http: Http) {
   //入口模块
   entryComponents: [
     MyApp,
-    MainPage,
-    LoginPage,
-    LaunchPage,
-    TestPage,
-    HotPage,
-    PersonalPage,
-    ForumPage,
-    TopicDetailPage,
-    MyTopicsPage
   ],
   //service模块
   providers: [
@@ -108,7 +98,8 @@ export function createTranslateLoader(http: Http) {
     CommonHttpService,
     TopicService,
     LoadingService,
-    PostService
+    PostService,
+    UtilsService
   ]
 })
 export class AppModule { }

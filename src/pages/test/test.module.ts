@@ -9,5 +9,8 @@ import { TestPage } from './test';
   imports: [
     IonicPageModule.forChild(TestPage),
   ],
+  entryComponents: [
+    TestPage
+  ]
 })
-export class TestPageModule {}
+export class TestPageModule { }

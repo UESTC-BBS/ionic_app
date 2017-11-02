@@ -11,30 +11,35 @@
       <ion-select [(ngModel)]="field1" interface="popover" (ionChange)='change()'>
         <ion-option *ngFor="let field of fields" [value]="field">{{field.board_category_name}}</ion-option>
       </ion-select>
-
       <ion-select [(ngModel)]="field2" interface="popover" (ionChange)='change2()'>
         <ion-option *ngFor="let board of field1.board_list" [value]="board">{{board.board_name}}</ion-option>
       </ion-select>
     </ion-item>
+    <div class="commit" (click)="submit_topic()">
+      <i class="fa fa-check fa-1g"></i>
+    </div>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-input placeholder="点击输入标题……" type="text" ng-focus="true"></ion-input>
-    </ion-item>
-    <ion-item class="textarea" no-lines>
-      <ion-textarea placeholder="说点什么吧……" type="text" ng-focus="true"></ion-textarea>
-    </ion-item>
-
-  </ion-list>
-  <ion-footer>
+  <ion-item>
+    <ion-input [(ngModel)]="topic.body.json.title" placeholder="点击输入标题……" type="text" ng-focus="true"></ion-input>
+    <ion-select [(ngModel)]="topic.body.json.typeId" interface="popover" item-end>
+      <ion-option *ngFor="let type of types" [value]="type.classificationType_id">{{type.classificationType_name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="textarea" no-lines>
+    <textarea [(ngModel)]="textContent" placeholder="说点什么吧……" type="text"></textarea>
+  </ion-item>
+  <div class="image_list">
+    <img class="image_item" *ngFor='let imageSrc of imgs' [src]='imageSrc'>
+  </div>
+  <ion-footer class="tool">
     <ion-toolbar>
       <i class="fa fa-image fa-2x" (click)="openFile()"></i>
-      <i class="fa fa-at fa-2x"></i>
+      <i class="fa fa-at fa-2x" (click)='getAtUsers($event)'></i>
     </ion-toolbar>
   </ion-footer>
 </ion-content>
